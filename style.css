@@ -49,3 +49,84 @@ body {
     background-color: #00779e;
 }
 /* banner */
+.banner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    gap: 50px;
+}
+.banner-text{
+    flex:1;
+}
+.banner-text h1{
+    font-size:52px;
+    color: #023e8a;
+    margin-bottom: 30px;
+}
+.banner-text p{
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.banner-btn{
+    padding: 14px 30px;
+    border: none;
+    background-color: #0096c7;
+    color: white;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.banner-btn:hover{
+    background-color: #00779e;
+}
+.banner-image{
+    flex:1;
+}
+.banner-image img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* Services */
+
+.services{
+    padding: 60px 8%;
+    text-align: center;  
+}
+
+.services h2{
+    font-size: 38px;
+    color: #023e8a;
+    margin-bottom: 40px;
+}
+
+.service-container{
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.service-card{
+    background-color: white;
+    padding: 30px;
+    width: 300px;
+    border-radius: 18px;
+    box-shadow:0 4px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+.service-card:hover{
+    transform: translateY(-8px);
+}
+
+.service-card h3{
+    color: #0096c7;
+    margin-bottom: 25px;
+}
+
+.service-card p{
+    line-height: 1.5;
+}
