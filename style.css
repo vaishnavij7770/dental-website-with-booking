@@ -130,3 +130,81 @@ body {
 .service-card p{
     line-height: 1.5;
 }
+
+/* Doctors */
+
+.doctors{
+    padding: 60px 8%;
+    text-align: center;  
+}
+
+.doctors h2{
+    font-size: 38px;
+    color: #023e8a;
+    margin-bottom: 40px;
+}
+
+.doctor-container{
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.doctor-card{
+    background: white;
+    padding: 25px;
+    width: 260px;
+    border-radius: 18px;
+    box-shadow:0 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.doctor-card h3{
+    color: #0096c7;
+    margin-bottom: 10px;
+}
+
+/* Reviews */
+
+.reviews{
+    padding: 60px 8%;
+    text-align: center;  
+}
+
+.reviews h2{
+    font-size: 38px;
+    color: #023e8a;
+    margin-bottom: 40px;
+}
+
+.review-container{
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.review-card{
+    background: white;
+    padding: 25px;
+    width: 300px;
+    border-radius: 18px;
+    box-shadow:0 4px 5px rgba(0, 0, 0, 0.1);
+}
+/* Footer */
+
+footer{
+    background:#023e8a;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
