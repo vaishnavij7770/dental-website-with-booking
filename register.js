@@ -20,4 +20,8 @@ form.addEventListener("submit", function(e) {
         message.innerText = "Please fill all fields";
         return;
     }
+
+    const mobilePattern = /^[0-9]{10}$/;
+
+    
 });
