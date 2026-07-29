@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Appointments</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        DentalCare
+    </div>
+
+    <ul>
+
+        <li><a href="/">Home</a></li>
+
+        <li><a href="/dashboard">Dashboard</a></li>
+
+        <li><a href="/booking">Book Appointment</a></li>
+
+        <li><a href="/logout">Logout</a></li>
+
+    </ul>
+
+</nav>
+
+
+<div class="container">
+
+    <h1>My Appointment History</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+        {% for message in messages %}
+
+        <div class="message">
+
+            {{ message }}
+
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+
+
+    {% if appointments %}
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Doctor</th>
+
+            <th>Specialization</th>
+
+            <th>Treatment</th>
+
+            <th>Date</th>
+
+            <th>Time</th>
+
+            <th>Status</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for appointment in appointments %}
+
+        <tr>
+
+            <td>
+
+                {{ appointment['id'] }}
+
+            </td>
+
+            <td>
+
+                {{ appointment['doctor_name'] }}
+
+            </td>
+
+            <td>
+
+                {{ appointment['specialization'] }}
+
+            </td>
+
+            <td>
+
+                {{ appointment['treatment'] }}
+
+            </td>
+
+            <td>
+
+                {{ appointment['appointment_date'] }}
+
+            </td>
+
+            <td>
+
+                {{ appointment['appointment_time'] }}
+
+            </td>
+
+            <td>
+
+                {% if appointment['status']=="Pending" %}
+
+                    <span class="pending">
+
+                        Pending
+
+                    </span>
+
+                {% elif appointment['status']=="Cancelled" %}
+
+                    <span class="cancel">
+
+                        Cancelled
+
+                    </span>
+
+                {% else %}
+
+                    <span class="approved">
+
+                        {{ appointment['status'] }}
+
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if appointment['status'] != "Cancelled" %}
+
+                <a href="/cancel/{{ appointment['id'] }}"
+                   class="cancel-btn">
+
+                    Cancel
+
+                </a>
+
+                <a href="/reschedule/{{ appointment['id'] }}"
+                   class="edit-btn">
+
+                    Reschedule
+
+                </a>
+
+                {% else %}
+
+                --
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="no-data">
+
+        <h2>
+
+            No Appointments Found
+
+        </h2>
+
+        <p>
+
+            You haven't booked any appointments yet.
+
+        </p>
+
+        <a href="/booking"
+           class="btn">
+
+            Book Appointment
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<footer>
+
+    <p>
+
+        © 2026 DentalCare Clinic | All Rights Reserved
+
+    </p>
+
+</footer>
+
+</body>
+
+</html>
