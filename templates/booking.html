@@ -1,139 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
+{% block title %}Book Appointment{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<section class="booking-section">
 
-    <title>Book Appointment</title>
+    <div class="booking-container">
 
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- Doctor Information -->
+        <div class="doctor-info">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+            <img src="{{ url_for('static', filename='images/' + doctor['image']) }}"
+                 alt="{{ doctor['name'] }}">
 
-</head>
+            <h2>{{ doctor['name'] }}</h2>
 
-<body>
+            <p class="specialization">
+                {{ doctor['specialization'] }}
+            </p>
 
-    <!-- ================= NAVBAR ================= -->
+            <p>
+                <strong>Experience:</strong>
+                {{ doctor['experience'] }} Years
+            </p>
 
-    <nav>
+            <p>
+                <strong>Consultation Fee:</strong>
+                ₹{{ doctor['fees'] }}
+            </p>
 
-        <div class="logo">
-
-            DentalCare
+            <p>
+                {{ doctor['about'] }}
+            </p>
 
         </div>
 
-        <ul>
+        <!-- Booking Form -->
+        <div class="booking-form">
 
-            <li><a href="/">Home</a></li>
-
-            <li><a href="/dashboard">Dashboard</a></li>
-
-            <li><a href="/appointments">Appointments</a></li>
-
-            <li><a href="/logout">Logout</a></li>
-
-        </ul>
-
-    </nav>
-
-    <!-- ================= BOOKING FORM ================= -->
-
-    <div class="form-container">
-
-        <div class="form-box">
-
-            <h2>
-
-                Book Appointment
-
-            </h2>
-
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
-
-            <div class="message">
-
-                {{ message }}
-
-            </div>
-
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
+            <h2>Book Appointment</h2>
 
             <form method="POST">
 
-                <label>Select Doctor</label>
+                <div class="form-group">
 
-                <select name="doctor" required>
+                    <label>Appointment Date</label>
 
-                    <option value="">Choose Doctor</option>
+                    <input
+                        type="date"
+                        id="appointment_date"
+                        name="appointment_date"
+                        required
+                    >
 
-                    {% for doctor in doctors %}
+                </div>
 
-                    <option value="{{ doctor['id'] }}">
+                <div class="form-group">
 
-                        {{ doctor['name'] }}
-                        -
-                        {{ doctor['specialization'] }}
+                    <label>Select Time</label>
 
-                    </option>
+                    <select name="appointment_time" required>
 
-                    {% endfor %}
+                        <option value="">Choose Time</option>
 
-                </select>
+                        <option>09:00 AM</option>
+                        <option>09:30 AM</option>
+                        <option>10:00 AM</option>
+                        <option>10:30 AM</option>
+                        <option>11:00 AM</option>
+                        <option>11:30 AM</option>
 
-                <label>Select Treatment</label>
+                        <option>02:00 PM</option>
+                        <option>02:30 PM</option>
+                        <option>03:00 PM</option>
+                        <option>03:30 PM</option>
+                        <option>04:00 PM</option>
+                        <option>04:30 PM</option>
 
-                <select name="treatment" required>
+                        <option>05:00 PM</option>
+                        <option>05:30 PM</option>
+                        <option>06:00 PM</option>
 
-                    <option value="">Choose Treatment</option>
+                    </select>
 
-                    <option>Dental Cleaning</option>
+                </div>
 
-                    <option>Root Canal Treatment</option>
+                <div class="form-group">
 
-                    <option>Dental Filling</option>
+                    <label>Reason For Visit</label>
 
-                    <option>Braces Consultation</option>
+                    <textarea
+                        name="reason"
+                        rows="5"
+                        placeholder="Describe your dental problem..."
+                        required
+                    ></textarea>
 
-                    <option>Teeth Whitening</option>
+                </div>
 
-                    <option>Dental Implant</option>
-
-                    <option>Tooth Extraction</option>
-
-                    <option>General Checkup</option>
-
-                </select>
-
-                <label>Appointment Date</label>
-
-                <input
-                    type="date"
-                    name="date"
-                    required>
-
-                <label>Select Time</label>
-
-                <input
-                    type="time"
-                    name="time"
-                    required>
-
-                <button type="submit">
-
-                    Book Appointment
-
+                <button type="submit" class="btn">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Confirm Appointment
                 </button>
 
             </form>
@@ -142,83 +110,12 @@
 
     </div>
 
-    <!-- ================= AVAILABLE DOCTORS ================= -->
+</section>
 
-    <section class="doctor-section">
+<script>
+    // Prevent selecting a past date
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("appointment_date").setAttribute("min", today);
+</script>
 
-        <h2>
-
-            Available Doctors
-
-        </h2>
-
-        <div class="doctor-container">
-
-            {% for doctor in doctors %}
-
-            <div class="doctor-card">
-
-                <img src="{{ url_for('static', filename='images/' + doctor['image']) }}"
-                    alt="Doctor">
-
-                <h3>
-
-                    {{ doctor['name'] }}
-
-                </h3>
-
-                <p>
-
-                    <strong>Specialization:</strong>
-
-                    {{ doctor['specialization'] }}
-
-                </p>
-
-                <p>
-
-                    <strong>Experience:</strong>
-
-                    {{ doctor['experience'] }}
-
-                </p>
-
-                <p>
-
-                    <strong>Timing:</strong>
-
-                    {{ doctor['timing'] }}
-
-                </p>
-
-                <p>
-
-                    <strong>Consultation Fee:</strong>
-
-                    ₹{{ doctor['fee'] }}
-
-                </p>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </section>
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <p>
-
-            © 2026 DentalCare Clinic | All Rights Reserved
-
-        </p>
-
-    </footer>
-
-</body>
-
-</html>
+{% endblock %}

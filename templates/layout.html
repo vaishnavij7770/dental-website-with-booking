@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dental Care Clinic{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <a href="{{ url_for('home') }}">
+            <i class="fa-solid fa-tooth"></i>
+            DentalCare
+        </a>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="{{ url_for('home') }}">Home</a>
+        </li>
+
+        <li>
+            <a href="{{ url_for('doctors') }}">Doctors</a>
+        </li>
+
+        {% if session.get('patient_id') %}
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('appointments') }}">Appointments</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('profile') }}">Profile</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </li>
+
+        {% elif session.get('admin') %}
+
+            <li>
+                <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin_logout') }}">Logout</a>
+            </li>
+
+        {% else %}
+
+            <li>
+                <a href="{{ url_for('login') }}">Patient Login</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('register') }}">Register</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin') }}">Admin</a>
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+</nav>
+
+<!-- ================= FLASH MESSAGES ================= -->
+
+<div class="container">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="alert {{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+
+<div class="main-content">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div>
+
+            <h3>DentalCare Clinic</h3>
+
+            <p>
+                Healthy Smile, Healthy Life.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <a href="{{ url_for('home') }}">Home</a><br>
+            <a href="{{ url_for('doctors') }}">Doctors</a><br>
+            <a href="{{ url_for('login') }}">Patient Login</a>
+
+        </div>
+
+        <div>
+
+            <h3>Contact</h3>
+
+            <p>
+                <i class="fa-solid fa-phone"></i>
+                +91 9876543210
+            </p>
+
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                dentalcare@gmail.com
+            </p>
+
+            <p>
+                <i class="fa-solid fa-location-dot"></i>
+                Pune, Maharashtra
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+        © 2026 DentalCare Clinic. All Rights Reserved.
+    </p>
+
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

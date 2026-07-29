@@ -1,134 +1,55 @@
-// ===============================
-// Dental Booking System
-// script.js
-// ===============================
-
-// -------------------------------
-// Auto Hide Flash Messages
-// -------------------------------
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const message = document.querySelector(".message");
-
-    if (message) {
-
-        setTimeout(() => {
-
-            message.style.transition = "0.5s";
-            message.style.opacity = "0";
-
-            setTimeout(() => {
-
-                message.remove();
-
-            }, 500);
-
-        }, 3000);
-
-    }
-
-});
-
-
-// -------------------------------
-// Mobile Navbar Toggle
-// (Optional if menu button added)
-// -------------------------------
+// ==========================
+// MOBILE NAVBAR (Optional)
+// ==========================
 
 const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector(".nav-links");
 
-if (menuBtn) {
+if (menuBtn && navLinks) {
 
     menuBtn.addEventListener("click", () => {
 
-        document.querySelector("nav ul").classList.toggle("show");
+        navLinks.classList.toggle("active");
 
     });
 
 }
 
 
-// -------------------------------
-// Registration Validation
-// -------------------------------
+// ==========================
+// AUTO HIDE FLASH MESSAGE
+// ==========================
 
-const registerForm = document.querySelector("form");
+const alerts = document.querySelectorAll(".alert");
 
-if (registerForm && window.location.pathname === "/register") {
+alerts.forEach((alert) => {
 
-    registerForm.addEventListener("submit", function (e) {
+    setTimeout(() => {
 
-        const mobile = document.querySelector("input[name='mobile']").value;
+        alert.style.opacity = "0";
 
-        const password = document.querySelector("input[name='password']").value;
+        setTimeout(() => {
 
-        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert.remove();
 
-            alert("Mobile number must contain exactly 10 digits.");
+        }, 500);
 
-            e.preventDefault();
+    }, 3000);
 
-            return;
-        }
-
-        if (password.length < 6) {
-
-            alert("Password should be at least 6 characters.");
-
-            e.preventDefault();
-
-            return;
-        }
-
-    });
-
-}
+});
 
 
-// -------------------------------
-// Booking Validation
-// -------------------------------
+// ==========================
+// CONFIRM DELETE DOCTOR
+// ==========================
 
-const bookingForm = document.querySelector("form");
+const deleteButtons = document.querySelectorAll(".delete");
 
-if (bookingForm && window.location.pathname === "/booking") {
-
-    bookingForm.addEventListener("submit", function (e) {
-
-        const date = document.querySelector("input[name='date']").value;
-
-        const today = new Date().toISOString().split("T")[0];
-
-        if (date < today) {
-
-            alert("Appointment date cannot be in the past.");
-
-            e.preventDefault();
-
-            return;
-        }
-
-    });
-
-}
-
-
-// -------------------------------
-// Confirm Cancel Appointment
-// -------------------------------
-
-const cancelButtons = document.querySelectorAll(".cancel-btn");
-
-cancelButtons.forEach(button => {
+deleteButtons.forEach((button) => {
 
     button.addEventListener("click", function (e) {
 
-        const confirmCancel = confirm(
-            "Are you sure you want to cancel this appointment?"
-        );
-
-        if (!confirmCancel) {
+        if (!confirm("Are you sure you want to delete this doctor?")) {
 
             e.preventDefault();
 
@@ -139,9 +60,118 @@ cancelButtons.forEach(button => {
 });
 
 
-// -------------------------------
-// Smooth Scroll
-// -------------------------------
+// ==========================
+// CONFIRM CANCEL APPOINTMENT
+// ==========================
+
+const cancelButtons = document.querySelectorAll(".cancel-btn");
+
+cancelButtons.forEach((button) => {
+
+    button.addEventListener("click", function (e) {
+
+        if (!confirm("Cancel this appointment?")) {
+
+            e.preventDefault();
+
+        }
+
+    });
+
+});
+
+
+// ==========================
+// CONFIRM APPROVE
+// ==========================
+
+const approveButtons = document.querySelectorAll(".approve");
+
+approveButtons.forEach((button) => {
+
+    button.addEventListener("click", function (e) {
+
+        if (!confirm("Approve this appointment?")) {
+
+            e.preventDefault();
+
+        }
+
+    });
+
+});
+
+
+// ==========================
+// CONFIRM REJECT
+// ==========================
+
+const rejectButtons = document.querySelectorAll(".reject");
+
+rejectButtons.forEach((button) => {
+
+    button.addEventListener("click", function (e) {
+
+        if (!confirm("Reject this appointment?")) {
+
+            e.preventDefault();
+
+        }
+
+    });
+
+});
+
+
+// ==========================
+// PASSWORD MATCH
+// ==========================
+
+const registerForm = document.querySelector("#registerForm");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", function (e) {
+
+        const password = document.getElementById("password");
+
+        const confirmPassword = document.getElementById("confirm_password");
+
+        if (password && confirmPassword) {
+
+            if (password.value !== confirmPassword.value) {
+
+                e.preventDefault();
+
+                alert("Passwords do not match.");
+
+            }
+
+        }
+
+    });
+
+}
+
+
+// ==========================
+// TODAY DATE
+// ==========================
+
+const dateInput = document.getElementById("appointment_date");
+
+if (dateInput) {
+
+    const today = new Date().toISOString().split("T")[0];
+
+    dateInput.min = today;
+
+}
+
+
+// ==========================
+// SMOOTH SCROLL
+// ==========================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
@@ -166,26 +196,35 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-// -------------------------------
-// Highlight Active Navigation Link
-// -------------------------------
+// ==========================
+// BUTTON HOVER EFFECT
+// ==========================
 
-const currentPage = window.location.pathname;
+const buttons = document.querySelectorAll(".btn");
 
-document.querySelectorAll("nav a").forEach(link => {
+buttons.forEach((button) => {
 
-    if (link.getAttribute("href") === currentPage) {
+    button.addEventListener("mouseenter", () => {
 
-        link.style.color = "#FFD700";
-        link.style.fontWeight = "bold";
+        button.style.transform = "scale(1.05)";
 
-    }
+    });
+
+    button.addEventListener("mouseleave", () => {
+
+        button.style.transform = "scale(1)";
+
+    });
 
 });
 
 
-// -------------------------------
-// Welcome Message
-// -------------------------------
+// ==========================
+// PAGE LOADED
+// ==========================
 
-console.log("Dental Booking System Loaded Successfully");
+window.addEventListener("load", () => {
+
+    console.log("Dental Booking System Loaded Successfully.");
+
+});

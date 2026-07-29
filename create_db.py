@@ -1,130 +1,155 @@
 import sqlite3
+from werkzeug.security import generate_password_hash
 
-conn = sqlite3.connect("dental.db")
-cursor = conn.cursor()
+DATABASE = "dental.db"
 
-# ---------------- Patients ----------------
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS patients(
+def create_database():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
 
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # ==========================
+    # Patients Table
+    # ==========================
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS patients(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        phone TEXT NOT NULL,
+        password TEXT NOT NULL
+    )
+    """)
 
-name TEXT NOT NULL,
+    # ==========================
+    # Doctors Table
+    # ==========================
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS doctors(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        specialization TEXT NOT NULL,
+        experience INTEGER,
+        fees INTEGER,
+        image TEXT,
+        about TEXT
+    )
+    """)
 
-age INTEGER NOT NULL,
+    # ==========================
+    # Appointments Table
+    # ==========================
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS appointments(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        patient_id INTEGER NOT NULL,
+        doctor_id INTEGER NOT NULL,
+        appointment_date TEXT NOT NULL,
+        appointment_time TEXT NOT NULL,
+        reason TEXT,
+        status TEXT DEFAULT 'Pending',
+        FOREIGN KEY(patient_id) REFERENCES patients(id),
+        FOREIGN KEY(doctor_id) REFERENCES doctors(id)
+    )
+    """)
 
-gender TEXT NOT NULL,
+    # ==========================
+    # Admin Table
+    # ==========================
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS admins(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL
+    )
+    """)
 
-mobile TEXT UNIQUE NOT NULL,
+    # ==========================
+    # Default Admin
+    # ==========================
+    admin = cursor.execute(
+        "SELECT * FROM admins WHERE username=?",
+        ("admin",)
+    ).fetchone()
 
-email TEXT UNIQUE NOT NULL,
+    if admin is None:
+        cursor.execute("""
+        INSERT INTO admins(username,password)
+        VALUES(?,?)
+        """, (
+            "admin",
+            generate_password_hash("admin123")
+        ))
 
-address TEXT NOT NULL,
+    # ==========================
+    # Sample Doctors
+    # ==========================
+    doctors = cursor.execute(
+        "SELECT COUNT(*) FROM doctors"
+    ).fetchone()[0]
 
-password TEXT NOT NULL
+    if doctors == 0:
 
-)
-""")
+        sample_doctors = [
 
-# ---------------- Doctors ----------------
+            (
+                "Dr. Rahul Sharma",
+                "Orthodontist",
+                10,
+                500,
+                "doctor1.jpg",
+                "Specialist in braces and teeth alignment."
+            ),
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS doctors(
+            (
+                "Dr. Priya Patel",
+                "Dentist",
+                8,
+                400,
+                "doctor2.jpg",
+                "Expert in root canal treatment and fillings."
+            ),
 
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+            (
+                "Dr. Amit Kulkarni",
+                "Oral Surgeon",
+                15,
+                700,
+                "doctor3.jpg",
+                "Experienced oral and maxillofacial surgeon."
+            ),
 
-name TEXT NOT NULL,
+            (
+                "Dr. Sneha Deshmukh",
+                "Pediatric Dentist",
+                6,
+                450,
+                "doctor4.jpg",
+                "Provides dental care for children."
+            )
 
-specialization TEXT NOT NULL,
+        ]
 
-experience TEXT NOT NULL,
-
-timing TEXT NOT NULL,
-
-fee INTEGER NOT NULL,
-
-image TEXT
-
-)
-""")
-
-# ---------------- Appointments ----------------
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS appointments(
-
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-patient_id INTEGER,
-
-doctor_id INTEGER,
-
-treatment TEXT,
-
-appointment_date TEXT,
-
-appointment_time TEXT,
-
-status TEXT DEFAULT 'Pending',
-
-FOREIGN KEY(patient_id) REFERENCES patients(id),
-
-FOREIGN KEY(doctor_id) REFERENCES doctors(id)
-
-)
-""")
-
-# ---------------- Insert Doctors ----------------
-
-cursor.execute("SELECT COUNT(*) FROM doctors")
-
-count = cursor.fetchone()[0]
-
-if count == 0:
-
-    doctors = [
-
-        (
-            "Dr. Priya Sharma",
-            "Orthodontist",
-            "8 Years",
-            "10 AM - 4 PM",
-            500,
-            "doctor1.jpg"
-        ),
-
-        (
-            "Dr. Rahul Mehta",
-            "Dental Surgeon",
-            "10 Years",
-            "11 AM - 6 PM",
-            600,
-            "doctor2.jpg"
-        ),
-
-        (
-            "Dr. Sneha Patil",
-            "Cosmetic Dentist",
-            "6 Years",
-            "9 AM - 2 PM",
-            450,
-            "doctor3.jpg"
+        cursor.executemany("""
+        INSERT INTO doctors(
+            name,
+            specialization,
+            experience,
+            fees,
+            image,
+            about
         )
+        VALUES(?,?,?,?,?,?)
+        """, sample_doctors)
 
-    ]
+    conn.commit()
+    conn.close()
 
-    cursor.executemany("""
+    print("Database created successfully!")
+    print("Default Admin Login")
+    print("Username : admin")
+    print("Password : admin123")
 
-    INSERT INTO doctors
-    (name,specialization,experience,timing,fee,image)
 
-    VALUES(?,?,?,?,?,?)
-
-    """, doctors)
-
-conn.commit()
-
-conn.close()
-
-print("Database Created Successfully")
+if __name__ == "__main__":
+    create_database()

@@ -1,110 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
+{% block title %}Patient Login{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section class="auth-section">
 
-    <title>Patient Login</title>
+    <div class="auth-card">
 
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}">
+        <h2>Patient Login</h2>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        <p>Login to manage your appointments.</p>
 
-</head>
+        <form method="POST">
 
-<body>
-
-    <nav>
-
-        <div class="logo">
-
-            DentalCare
-
-        </div>
-
-        <ul>
-
-            <li><a href="/">Home</a></li>
-
-            <li><a href="/register">Register</a></li>
-
-        </ul>
-
-    </nav>
-
-
-    <div class="form-container">
-
-        <div class="form-box">
-
-            <h2>
-
-                Patient Login
-
-            </h2>
-
-            {% with messages = get_flashed_messages() %}
-
-            {% if messages %}
-
-            {% for message in messages %}
-
-            <div class="message">
-
-                {{ message }}
-
-            </div>
-
-            {% endfor %}
-
-            {% endif %}
-
-            {% endwith %}
-
-
-            <form method="POST">
+            <div class="form-group">
+                <label>Email Address</label>
 
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email Address"
-                    required>
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
 
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
-                    required>
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-                <button type="submit">
+            <button type="submit" class="btn auth-btn">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </button>
 
-                    Login
+        </form>
 
-                </button>
-
-            </form>
-
-            <p>
-
-                Don't have an account?
-
-                <a href="/register">
-
-                    Register Here
-
-                </a>
-
-            </p>
-
-        </div>
+        <p class="auth-link">
+            Don't have an account?
+            <a href="{{ url_for('register') }}">Register Here</a>
+        </p>
 
     </div>
 
-</body>
+</section>
 
-</html>
+{% endblock %}

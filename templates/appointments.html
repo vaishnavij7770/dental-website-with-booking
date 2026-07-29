@@ -1,92 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
+{% block title %}My Appointments{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<section class="appointments-section">
 
-    <title>My Appointments</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-</head>
-
-<body>
-
-<nav>
-
-    <div class="logo">
-        DentalCare
-    </div>
-
-    <ul>
-
-        <li><a href="/">Home</a></li>
-
-        <li><a href="/dashboard">Dashboard</a></li>
-
-        <li><a href="/booking">Book Appointment</a></li>
-
-        <li><a href="/logout">Logout</a></li>
-
-    </ul>
-
-</nav>
-
-
-<div class="container">
-
-    <h1>My Appointment History</h1>
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-
-        {% for message in messages %}
-
-        <div class="message">
-
-            {{ message }}
-
-        </div>
-
-        {% endfor %}
-
-    {% endif %}
-    {% endwith %}
-
+    <h2>My Appointments</h2>
 
     {% if appointments %}
 
-    <table>
+    <table class="appointment-table">
 
         <thead>
 
-        <tr>
-
-            <th>ID</th>
-
-            <th>Doctor</th>
-
-            <th>Specialization</th>
-
-            <th>Treatment</th>
-
-            <th>Date</th>
-
-            <th>Time</th>
-
-            <th>Status</th>
-
-            <th>Actions</th>
-
-        </tr>
+            <tr>
+                <th>Doctor</th>
+                <th>Specialization</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
 
         </thead>
 
@@ -94,101 +30,80 @@
 
         {% for appointment in appointments %}
 
-        <tr>
+            <tr>
 
-            <td>
+                <td>{{ appointment['doctor_name'] }}</td>
 
-                {{ appointment['id'] }}
+                <td>{{ appointment['specialization'] }}</td>
 
-            </td>
+                <td>{{ appointment['appointment_date'] }}</td>
 
-            <td>
+                <td>{{ appointment['appointment_time'] }}</td>
 
-                {{ appointment['doctor_name'] }}
+                <td>{{ appointment['reason'] }}</td>
 
-            </td>
+                <td>
 
-            <td>
+                    {% if appointment['status']=="Pending" %}
 
-                {{ appointment['specialization'] }}
+                        <span class="status pending">
+                            Pending
+                        </span>
 
-            </td>
+                    {% elif appointment['status']=="Approved" %}
 
-            <td>
+                        <span class="status approved">
+                            Approved
+                        </span>
 
-                {{ appointment['treatment'] }}
+                    {% elif appointment['status']=="Rejected" %}
 
-            </td>
+                        <span class="status rejected">
+                            Rejected
+                        </span>
 
-            <td>
+                    {% else %}
 
-                {{ appointment['appointment_date'] }}
+                        <span class="status cancelled">
+                            Cancelled
+                        </span>
 
-            </td>
+                    {% endif %}
 
-            <td>
+                </td>
 
-                {{ appointment['appointment_time'] }}
+                <td>
 
-            </td>
+                    {% if appointment['status']=="Pending" %}
 
-            <td>
+                        <a href="{{ url_for('reschedule',
+                        id=appointment['id']) }}"
+                        class="btn-small edit">
 
-                {% if appointment['status']=="Pending" %}
+                            Reschedule
 
-                    <span class="pending">
+                        </a>
 
-                        Pending
+                        <a href="{{ url_for('cancel',
+                        id=appointment['id']) }}"
+                        class="btn-small delete"
+                        onclick="return confirm('Cancel this appointment?')">
 
-                    </span>
+                            Cancel
 
-                {% elif appointment['status']=="Cancelled" %}
+                        </a>
 
-                    <span class="cancel">
+                    {% else %}
 
-                        Cancelled
+                        <span class="disabled-text">
+                            No Action
+                        </span>
 
-                    </span>
+                    {% endif %}
 
-                {% else %}
+                </td>
 
-                    <span class="approved">
-
-                        {{ appointment['status'] }}
-
-                    </span>
-
-                {% endif %}
-
-            </td>
-
-            <td>
-
-                {% if appointment['status'] != "Cancelled" %}
-
-                <a href="/cancel/{{ appointment['id'] }}"
-                   class="cancel-btn">
-
-                    Cancel
-
-                </a>
-
-                <a href="/reschedule/{{ appointment['id'] }}"
-                   class="edit-btn">
-
-                    Reschedule
-
-                </a>
-
-                {% else %}
-
-                --
-
-                {% endif %}
-
-            </td>
-
-        </tr>
+            </tr>
 
         {% endfor %}
 
@@ -198,22 +113,17 @@
 
     {% else %}
 
-    <div class="no-data">
+    <div class="empty-state">
 
-        <h2>
+        <i class="fa-solid fa-calendar-xmark"></i>
 
-            No Appointments Found
-
-        </h2>
+        <h3>No Appointments Found</h3>
 
         <p>
-
             You haven't booked any appointments yet.
-
         </p>
 
-        <a href="/booking"
-           class="btn">
+        <a href="{{ url_for('doctors') }}" class="btn">
 
             Book Appointment
 
@@ -223,19 +133,6 @@
 
     {% endif %}
 
-</div>
+</section>
 
-
-<footer>
-
-    <p>
-
-        © 2026 DentalCare Clinic | All Rights Reserved
-
-    </p>
-
-</footer>
-
-</body>
-
-</html>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Doctor{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>
+        <i class="fa-solid fa-user-plus"></i>
+        Add New Doctor
+    </h2>
+
+    <form method="POST">
+
+        <div class="form-group">
+
+            <label>Doctor Name</label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter doctor's name"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Specialization</label>
+
+            <input
+                type="text"
+                name="specialization"
+                placeholder="e.g. Dentist"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Experience (Years)</label>
+
+            <input
+                type="number"
+                name="experience"
+                min="0"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Consultation Fees</label>
+
+            <input
+                type="number"
+                name="fees"
+                min="0"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Doctor Image URL</label>
+
+            <input
+                type="text"
+                name="image"
+                placeholder="images/doctor1.jpg or image URL"
+                required
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>About Doctor</label>
+
+            <textarea
+                name="about"
+                rows="5"
+                placeholder="Write doctor description..."
+                required
+            ></textarea>
+
+        </div>
+
+        <div class="form-buttons">
+
+            <button type="submit" class="btn">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Save Doctor
+
+            </button>
+
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-danger">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

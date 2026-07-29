@@ -1,128 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
+{% block title %}Reschedule Appointment{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section class="form-section">
 
-    <title>Reschedule Appointment</title>
+    <div class="form-container">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+        <h2>Reschedule Appointment</h2>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-</head>
-
-<body>
-
-<nav>
-
-    <div class="logo">
-
-        DentalCare
-
-    </div>
-
-    <ul>
-
-        <li><a href="/">Home</a></li>
-
-        <li><a href="/dashboard">Dashboard</a></li>
-
-        <li><a href="/appointments">Appointments</a></li>
-
-        <li><a href="/logout">Logout</a></li>
-
-    </ul>
-
-</nav>
-
-<div class="form-container">
-
-    <div class="form-box">
-
-        <h2>
-
-            Reschedule Appointment
-
-        </h2>
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-
-        {% for message in messages %}
-
-        <div class="message">
-
-            {{ message }}
-
-        </div>
-
-        {% endfor %}
-
-        {% endif %}
-        {% endwith %}
+        <p class="subtitle">
+            Update your appointment date and time.
+        </p>
 
         <form method="POST">
 
-            <label>
+            <div class="form-group">
 
-                Appointment Date
+                <label>Appointment Date</label>
 
-            </label>
+                <input
+                    type="date"
+                    id="appointment_date"
+                    name="appointment_date"
+                    value="{{ appointment['appointment_date'] }}"
+                    required
+                >
 
-            <input
-                type="date"
-                name="date"
-                value="{{ appointment['appointment_date'] }}"
-                required>
+            </div>
 
-            <label>
+            <div class="form-group">
 
-                Appointment Time
+                <label>Appointment Time</label>
 
-            </label>
+                <select name="appointment_time" required>
 
-            <input
-                type="time"
-                name="time"
-                value="{{ appointment['appointment_time'] }}"
-                required>
+                    <option value="09:00 AM"
+                    {% if appointment['appointment_time']=="09:00 AM" %}selected{% endif %}>
+                        09:00 AM
+                    </option>
 
-            <button type="submit">
+                    <option value="09:30 AM"
+                    {% if appointment['appointment_time']=="09:30 AM" %}selected{% endif %}>
+                        09:30 AM
+                    </option>
+
+                    <option value="10:00 AM"
+                    {% if appointment['appointment_time']=="10:00 AM" %}selected{% endif %}>
+                        10:00 AM
+                    </option>
+
+                    <option value="10:30 AM"
+                    {% if appointment['appointment_time']=="10:30 AM" %}selected{% endif %}>
+                        10:30 AM
+                    </option>
+
+                    <option value="11:00 AM"
+                    {% if appointment['appointment_time']=="11:00 AM" %}selected{% endif %}>
+                        11:00 AM
+                    </option>
+
+                    <option value="11:30 AM"
+                    {% if appointment['appointment_time']=="11:30 AM" %}selected{% endif %}>
+                        11:30 AM
+                    </option>
+
+                    <option value="02:00 PM"
+                    {% if appointment['appointment_time']=="02:00 PM" %}selected{% endif %}>
+                        02:00 PM
+                    </option>
+
+                    <option value="02:30 PM"
+                    {% if appointment['appointment_time']=="02:30 PM" %}selected{% endif %}>
+                        02:30 PM
+                    </option>
+
+                    <option value="03:00 PM"
+                    {% if appointment['appointment_time']=="03:00 PM" %}selected{% endif %}>
+                        03:00 PM
+                    </option>
+
+                    <option value="03:30 PM"
+                    {% if appointment['appointment_time']=="03:30 PM" %}selected{% endif %}>
+                        03:30 PM
+                    </option>
+
+                    <option value="04:00 PM"
+                    {% if appointment['appointment_time']=="04:00 PM" %}selected{% endif %}>
+                        04:00 PM
+                    </option>
+
+                    <option value="04:30 PM"
+                    {% if appointment['appointment_time']=="04:30 PM" %}selected{% endif %}>
+                        04:30 PM
+                    </option>
+
+                    <option value="05:00 PM"
+                    {% if appointment['appointment_time']=="05:00 PM" %}selected{% endif %}>
+                        05:00 PM
+                    </option>
+
+                    <option value="05:30 PM"
+                    {% if appointment['appointment_time']=="05:30 PM" %}selected{% endif %}>
+                        05:30 PM
+                    </option>
+
+                    <option value="06:00 PM"
+                    {% if appointment['appointment_time']=="06:00 PM" %}selected{% endif %}>
+                        06:00 PM
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn">
+
+                <i class="fa-solid fa-calendar-check"></i>
 
                 Update Appointment
 
             </button>
 
+            <a href="{{ url_for('appointments') }}" class="btn btn-secondary">
+
+                Cancel
+
+            </a>
+
         </form>
-
-        <br>
-
-        <a href="/appointments" class="btn">
-
-            Back to Appointments
-
-        </a>
 
     </div>
 
-</div>
+</section>
 
-<footer>
+<script>
 
-    <p>
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("appointment_date").setAttribute("min", today);
 
-        © 2026 DentalCare Clinic | All Rights Reserved
+</script>
 
-    </p>
-
-</footer>
-
-</body>
-
-</html>
+{% endblock %}

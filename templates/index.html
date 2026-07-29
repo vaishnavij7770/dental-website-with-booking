@@ -1,216 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Care Clinic</title>
+{% block title %}Dental Care Clinic{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block content %}
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<!-- ================= HERO ================= -->
 
-</head>
+<section class="hero">
 
-<body>
+    <div class="hero-content">
 
-    <!-- ================= NAVBAR ================= -->
+        <h1>Your Smile is Our Priority</h1>
 
-    <nav>
+        <p>
+            Book appointments with experienced dentists and get the best dental treatment for you and your family.
+        </p>
 
-        <div class="logo">
-            DentalCare
-        </div>
+        <div class="hero-buttons">
 
-        <ul>
+            <a href="{{ url_for('register') }}" class="btn">
+                Register Now
+            </a>
 
-            <li><a href="/">Home</a></li>
-
-            <li><a href="/doctors">Doctors</a></li>
-
-            <li><a href="/booking">Book Appointment</a></li>
-
-            {% if session.get('patient_id') %}
-
-            <li><a href="/dashboard">Dashboard</a></li>
-
-            <li><a href="/appointments">Appointments</a></li>
-
-            <li><a href="/logout">Logout</a></li>
-
-            {% else %}
-
-            <li><a href="/login">Login</a></li>
-
-            <li><a href="/register">Register</a></li>
-
-            {% endif %}
-
-        </ul>
-
-    </nav>
-
-
-    <!-- ================= HERO ================= -->
-
-    <section class="hero">
-
-        <div class="hero-text">
-
-            <h1>Your Smile Is Our Priority</h1>
-
-            <p>
-
-                Professional Dental Treatment with Experienced Dentists.
-
-            </p>
-
-            <a href="/booking" class="btn">
-
-                Book Appointment
-
+            <a href="{{ url_for('doctors') }}" class="btn btn-danger">
+                View Doctors
             </a>
 
         </div>
 
-    </section>
+    </div>
 
+</section>
+<!-- ================= SERVICES ================= -->
 
-    <!-- ================= ABOUT ================= -->
+<section class="services">
 
-    <section class="about">
+    <h2>Our Services</h2>
 
-        <h2>About Our Clinic</h2>
+    <div class="services-grid">
 
-        <p>
-
-            We provide quality dental treatment including braces,
-            root canal treatment, cosmetic dentistry,
-            teeth whitening and dental implants.
-
-        </p>
-
-    </section>
-
-
-    <!-- ================= SERVICES ================= -->
-
-    <section class="services">
-
-        <h2>Our Services</h2>
-
-        <div class="service-container">
-
-            <div class="card">
-
-                <i class="fa-solid fa-tooth"></i>
-
-                <h3>Dental Cleaning</h3>
-
-                <p>
-
-                    Complete teeth cleaning and oral hygiene.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-user-doctor"></i>
-
-                <h3>Root Canal</h3>
-
-                <p>
-
-                    Painless root canal treatment.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-face-smile"></i>
-
-                <h3>Teeth Whitening</h3>
-
-                <p>
-
-                    Brighten your smile professionally.
-
-                </p>
-
-            </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-teeth"></i>
-
-                <h3>Braces</h3>
-
-                <p>
-
-                    Metal and Invisible Braces available.
-
-                </p>
-
-            </div>
-
+        <div class="service-card">
+            <i class="fa-solid fa-tooth"></i>
+            <h3>General Dentistry</h3>
+            <p>
+                Regular dental checkups and oral health care.
+            </p>
         </div>
 
-    </section>
+        <div class="service-card">
+            <i class="fa-solid fa-teeth"></i>
+            <h3>Braces</h3>
+            <p>
+                Teeth alignment with advanced orthodontic treatment.
+            </p>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <h3>Root Canal</h3>
+            <p>
+                Pain-free root canal treatment by experienced specialists.
+            </p>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-child"></i>
+            <h3>Kids Dentistry</h3>
+            <p>
+                Friendly dental care specially designed for children.
+            </p>
+        </div>
+
+    </div>
+
+</section>
 
 
+<!-- ================= DOCTORS ================= -->
+<!-- ================= DOCTORS ================= -->
 
-    <!-- ================= DOCTORS ================= -->
+<section class="doctors">
 
-    <section class="doctors">
+    <div class="container">
 
-        <h2>Our Doctors</h2>
+        <h2 class="section-title">
+            Meet Our Doctors
+        </h2>
 
-        <div class="doctor-container">
+        <div class="doctor-grid">
 
             {% for doctor in doctors %}
 
             <div class="doctor-card">
 
-                <img src="{{ url_for('static', filename='images/' + doctor['image']) }}" alt="doctor">
+                <img
+                    src="{{ url_for('static', filename='images/' + doctor['image']) }}"
+                    alt="{{ doctor['name'] }}"
+                >
 
-                <h3>
+                <div class="doctor-info">
 
-                    {{ doctor['name'] }}
+                    <h3>{{ doctor['name'] }}</h3>
 
-                </h3>
+                    <p>
+                        <strong>Specialization:</strong>
+                        {{ doctor['specialization'] }}
+                    </p>
 
-                <p>
+                    <p>
+                        <strong>Experience:</strong>
+                        {{ doctor['experience'] }} Years
+                    </p>
 
-                    {{ doctor['specialization'] }}
+                    <p>
+                        <strong>Consultation Fee:</strong>
+                        ₹{{ doctor['fees'] }}
+                    </p>
 
-                </p>
+                    {% if doctor['about'] %}
 
-                <p>
+                    <p>
+                        {{ doctor['about'] }}
+                    </p>
 
-                    Experience :
-                    {{ doctor['experience'] }}
+                    {% endif %}
 
-                </p>
+                    {% if session.get('patient_id') %}
 
-                <p>
+                    <a
+                        href="{{ url_for('booking', doctor_id=doctor['id']) }}"
+                        class="btn"
+                    >
+                        Book Appointment
+                    </a>
 
-                    Timing :
-                    {{ doctor['timing'] }}
+                    {% else %}
 
-                </p>
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="btn"
+                    >
+                        Login to Book
+                    </a>
 
-                <p>
+                    {% endif %}
 
-                    Consultation Fee :
-
-                    ₹{{ doctor['fee'] }}
-
-                </p>
+                </div>
 
             </div>
 
@@ -218,168 +153,169 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
 
-    <!-- ================= WHY CHOOSE US ================= -->
 
-    <section class="why">
+<!-- ================= WHY CHOOSE US ================= -->
 
-        <h2>Why Choose Us?</h2>
+<section class="why-choose">
 
-        <div class="why-container">
+    <h2>Why Choose Us?</h2>
 
-            <div>
+    <div class="why-grid">
 
-                ✔ Experienced Doctors
+        <div class="why-card">
+            <i class="fa-solid fa-user-doctor"></i>
+            <h3>Experienced Doctors</h3>
+            <p>
+                Highly qualified dental specialists.
+            </p>
+        </div>
 
-            </div>
+        <div class="why-card">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Easy Booking</h3>
+            <p>
+                Book appointments in less than one minute.
+            </p>
+        </div>
 
-            <div>
+        <div class="why-card">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h3>Safe Treatment</h3>
+            <p>
+                Modern equipment with complete hygiene.
+            </p>
+        </div>
 
-                ✔ Modern Equipment
+        <div class="why-card">
+            <i class="fa-solid fa-star"></i>
+            <h3>Best Service</h3>
+            <p>
+                Trusted by thousands of happy patients.
+            </p>
+        </div>
 
-            </div>
+    </div>
 
-            <div>
+</section>
 
-                ✔ Affordable Fees
 
-            </div>
+<!-- ================= TESTIMONIALS ================= -->
 
-            <div>
+<section class="testimonials">
 
-                ✔ Online Appointment Booking
+    <h2>Patient Reviews</h2>
 
-            </div>
+    <div class="review-grid">
 
-            <div>
+        <div class="review-card">
 
-                ✔ Emergency Dental Care
+            <h3>Priya Patil</h3>
 
-            </div>
+            <p>
+                <div class="stars">
 
-            <div>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
 
-                ✔ Friendly Staff
+                </div>
+            </p>
 
-            </div>
+            <p>
+                Wonderful treatment. The doctors were very kind and
+                professional.
+            </p>
 
         </div>
 
-    </section>
+        <div class="review-card">
 
+            <h3>Rahul Sharma</h3>
 
+            <p>
+                <div class="stars">
 
-    <!-- ================= REVIEWS ================= -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
 
-    <section class="reviews">
+                </div>
+            </p>
 
-        <h2>Patient Reviews</h2>
-
-        <div class="review-container">
-
-            <div class="review">
-
-                ⭐⭐⭐⭐⭐
-
-                <p>
-
-                    Excellent treatment and friendly doctors.
-
-                </p>
-
-                <h4>
-
-                    - Rahul
-
-                </h4>
-
-            </div>
-
-            <div class="review">
-
-                ⭐⭐⭐⭐⭐
-
-                <p>
-
-                    Best braces treatment.
-
-                </p>
-
-                <h4>
-
-                    - Sneha
-
-                </h4>
-
-            </div>
-
-            <div class="review">
-
-                ⭐⭐⭐⭐⭐
-
-                <p>
-
-                    Very clean clinic and affordable prices.
-
-                </p>
-
-                <h4>
-
-                    - Amit
-
-                </h4>
-
-            </div>
+            <p>
+                Booking process was very easy and treatment was excellent.
+            </p>
 
         </div>
 
-    </section>
+        <div class="review-card">
+
+            <h3>Anjali Kulkarni</h3>
+
+            <p>
+                <div class="stars">
+
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+
+                </div>
+            </p>
+
+            <p>
+                Best dental clinic. Clean environment and friendly staff.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
+<!-- ================= CONTACT ================= -->
 
-    <!-- ================= CONTACT ================= -->
+<section class="contact">
 
-    <section class="contact">
+    <h2>Visit Our Clinic</h2>
 
-        <h2>Contact Us</h2>
+    <div class="contact-grid">
+
+        <div class="contact-info">
 
         <p>
-
-            📍 Pune, Maharashtra
-
+            <i class="fa-solid fa-location-dot"></i>
+            Pune, Maharashtra
         </p>
 
         <p>
-
-            📞 +91 9876543210
-
+            <i class="fa-solid fa-phone"></i>
+            +91 9876543210
         </p>
 
         <p>
-
-            ✉ dentalcare@gmail.com
-
+            <i class="fa-solid fa-envelope"></i>
+            dentalcare@gmail.com
         </p>
-
-    </section>
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
 
         <p>
-
-            © 2026 Dental Care Clinic | All Rights Reserved
-
+            Monday - Saturday : 9:00 AM - 8:00 PM
         </p>
 
-    </footer>
+    </div>
+</div>
+</section>
 
-</body>
-
-</html>
+{% endblock %}

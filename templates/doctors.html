@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}Our Doctors{% endblock %}
+
+{% block content %}
+
+<section class="doctor-page">
+
+    <div class="page-title">
+
+        <h2>Meet Our Dental Specialists</h2>
+
+        <p>
+            Choose your preferred doctor and book an appointment.
+        </p>
+
+    </div>
+
+    <div class="doctor-grid">
+
+        {% for doctor in doctors %}
+
+        <div class="doctor-card">
+
+            <img
+                src="{{ url_for('static', filename='images/' + doctor['image']) }}"
+                alt="{{ doctor['name'] }}"
+            >
+
+            <div class="doctor-info">
+
+                <h3>{{ doctor['name'] }}</h3>
+
+                <span class="specialization">
+                    {{ doctor['specialization'] }}
+                </span>
+
+                <p>
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    Experience :
+                    {{ doctor['experience'] }} Years
+
+                </p>
+
+                <p>
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                    Consultation Fee :
+                    ₹{{ doctor['fees'] }}
+
+                </p>
+
+                <p class="doctor-about">
+
+                    {{ doctor['about'] }}
+
+                </p>
+
+                {% if session.get('patient_id') %}
+
+                <a
+                    href="{{ url_for('booking', doctor_id=doctor['id']) }}"
+                    class="btn"
+                >
+                    <i class="fa-solid fa-calendar-plus"></i>
+
+                    Book Appointment
+
+                </a>
+
+                {% else %}
+
+                <a
+                    href="{{ url_for('login') }}"
+                    class="btn"
+                >
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Login To Book
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
