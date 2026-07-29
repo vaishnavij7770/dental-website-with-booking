@@ -79,7 +79,7 @@ DentalCare/
 └── README.md
 🚀 Installation
 Clone the Repository
-git clone https://github.com/yourusername/DentalCare.git
+git clone yourgitrepo
 Navigate to the Project
 cd DentalCare
 Create Virtual Environment
