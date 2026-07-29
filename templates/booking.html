@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+
+            DentalCare
+
+        </div>
+
+        <ul>
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/dashboard">Dashboard</a></li>
+
+            <li><a href="/appointments">Appointments</a></li>
+
+            <li><a href="/logout">Logout</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- ================= BOOKING FORM ================= -->
+
+    <div class="form-container">
+
+        <div class="form-box">
+
+            <h2>
+
+                Book Appointment
+
+            </h2>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <label>Select Doctor</label>
+
+                <select name="doctor" required>
+
+                    <option value="">Choose Doctor</option>
+
+                    {% for doctor in doctors %}
+
+                    <option value="{{ doctor['id'] }}">
+
+                        {{ doctor['name'] }}
+                        -
+                        {{ doctor['specialization'] }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <label>Select Treatment</label>
+
+                <select name="treatment" required>
+
+                    <option value="">Choose Treatment</option>
+
+                    <option>Dental Cleaning</option>
+
+                    <option>Root Canal Treatment</option>
+
+                    <option>Dental Filling</option>
+
+                    <option>Braces Consultation</option>
+
+                    <option>Teeth Whitening</option>
+
+                    <option>Dental Implant</option>
+
+                    <option>Tooth Extraction</option>
+
+                    <option>General Checkup</option>
+
+                </select>
+
+                <label>Appointment Date</label>
+
+                <input
+                    type="date"
+                    name="date"
+                    required>
+
+                <label>Select Time</label>
+
+                <input
+                    type="time"
+                    name="time"
+                    required>
+
+                <button type="submit">
+
+                    Book Appointment
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= AVAILABLE DOCTORS ================= -->
+
+    <section class="doctor-section">
+
+        <h2>
+
+            Available Doctors
+
+        </h2>
+
+        <div class="doctor-container">
+
+            {% for doctor in doctors %}
+
+            <div class="doctor-card">
+
+                <img src="{{ url_for('static', filename='images/' + doctor['image']) }}"
+                    alt="Doctor">
+
+                <h3>
+
+                    {{ doctor['name'] }}
+
+                </h3>
+
+                <p>
+
+                    <strong>Specialization:</strong>
+
+                    {{ doctor['specialization'] }}
+
+                </p>
+
+                <p>
+
+                    <strong>Experience:</strong>
+
+                    {{ doctor['experience'] }}
+
+                </p>
+
+                <p>
+
+                    <strong>Timing:</strong>
+
+                    {{ doctor['timing'] }}
+
+                </p>
+
+                <p>
+
+                    <strong>Consultation Fee:</strong>
+
+                    ₹{{ doctor['fee'] }}
+
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 DentalCare Clinic | All Rights Reserved
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

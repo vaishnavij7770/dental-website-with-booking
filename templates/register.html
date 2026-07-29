@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Registration</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+
+            DentalCare
+
+        </div>
+
+        <ul>
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/login">Login</a></li>
+
+        </ul>
+
+    </nav>
+
+
+    <div class="form-container">
+
+        <div class="form-box">
+
+            <h2>
+
+                Patient Registration
+
+            </h2>
+
+            {% with messages=get_flashed_messages() %}
+
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+            {% endwith %}
+
+
+            <form method="POST">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    required>
+
+
+                <input
+                    type="number"
+                    name="age"
+                    placeholder="Age"
+                    min="1"
+                    max="120"
+                    required>
+
+
+                <select
+                    name="gender"
+                    required>
+
+                    <option value="">Select Gender</option>
+
+                    <option>Male</option>
+
+                    <option>Female</option>
+
+                    <option>Other</option>
+
+                </select>
+
+
+                <input
+                    type="text"
+                    name="mobile"
+                    placeholder="Mobile Number"
+                    maxlength="10"
+                    minlength="10"
+                    required>
+
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    required>
+
+
+                <textarea
+                    name="address"
+                    rows="3"
+                    placeholder="Address"
+                    required></textarea>
+
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+
+                <button type="submit">
+
+                    Register
+
+                </button>
+
+            </form>
+
+            <p>
+
+                Already have an account?
+
+                <a href="/login">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

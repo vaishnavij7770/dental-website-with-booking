@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+
+            DentalCare
+
+        </div>
+
+        <ul>
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/doctors">Doctors</a></li>
+
+            <li><a href="/booking">Book Appointment</a></li>
+
+            <li><a href="/appointments">Appointments</a></li>
+
+            <li><a href="/logout">Logout</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="dashboard">
+
+        <h1>
+
+            Welcome,
+            {{ session['patient_name'] }}
+
+        </h1>
+
+        <p>
+
+            Manage your appointments and dental records from your dashboard.
+
+        </p>
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <h2>
+
+                    {{ appointments|length }}
+
+                </h2>
+
+                <p>
+
+                    Total Appointments
+
+                </p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <h2>
+
+                    3
+
+                </h2>
+
+                <p>
+
+                    Available Doctors
+
+                </p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-tooth"></i>
+
+                <h2>
+
+                    Dental Care
+
+                </h2>
+
+                <p>
+
+                    Quality Treatment
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= APPOINTMENTS ================= -->
+
+    <section class="appointment-section">
+
+        <div class="section-header">
+
+            <h2>
+
+                My Appointments
+
+            </h2>
+
+            <a href="/booking" class="btn">
+
+                Book New Appointment
+
+            </a>
+
+        </div>
+
+        {% if appointments %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Doctor</th>
+
+                    <th>Treatment</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for appointment in appointments %}
+
+                <tr>
+
+                    <td>
+
+                        {{ appointment['doctor_name'] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ appointment['treatment'] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ appointment['appointment_date'] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ appointment['appointment_time'] }}
+
+                    </td>
+
+                    <td>
+
+                        {% if appointment['status']=="Pending" %}
+
+                        <span class="pending">
+
+                            Pending
+
+                        </span>
+
+                        {% elif appointment['status']=="Cancelled" %}
+
+                        <span class="cancel">
+
+                            Cancelled
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="approved">
+
+                            {{ appointment['status'] }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="no-data">
+
+            <h3>
+
+                No Appointments Found
+
+            </h3>
+
+            <p>
+
+                Click the button below to book your first appointment.
+
+            </p>
+
+            <a href="/booking" class="btn">
+
+                Book Appointment
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            © 2026 DentalCare Clinic | All Rights Reserved
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
