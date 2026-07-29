@@ -149,6 +149,10 @@ img{
 .btn-danger{
 
     background:#d62828;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
 
 }
 
@@ -752,7 +756,7 @@ section{
     text-decoration:underline;
 }
 .auth-card.register-card{
-    max-width:600px;
+    max-width:700px;
 }
 
 
@@ -1029,4 +1033,344 @@ footer hr{
 .empty-state h3{
     color:#023e8a;
     margin-bottom:10px;
+}
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.form-group textarea{
+
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    resize:vertical;
+    min-height:140px;
+    font-size:16px;
+    font-family:'Poppins',sans-serif;
+    box-sizing:border-box;
+}
+
+.form-group textarea:focus{
+
+    outline:none;
+    border-color:#0077b6;
+    box-shadow:0 0 8px rgba(0,119,182,.25);
+
+}
+/* =========================================
+   PATIENT DASHBOARD
+========================================= */
+
+.dashboard-section{
+    padding:80px 0;
+    background:#f4f9ff;
+}
+
+.dashboard-header{
+    background:#fff;
+    padding:35px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.dashboard-header h1{
+    color:#023e8a;
+    margin-bottom:10px;
+}
+
+.dashboard-header p{
+    color:#666;
+}
+
+.dashboard-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-bottom:35px;
+}
+
+.dashboard-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.dashboard-card i{
+    font-size:42px;
+    color:#0077b6;
+    margin-bottom:15px;
+}
+
+.dashboard-card h2{
+    color:#023e8a;
+    margin-bottom:10px;
+}
+
+.dashboard-actions{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+}
+/* =========================================
+   PROFILE PAGE
+========================================= */
+
+.profile-form{
+    grid-column:span 2;
+}
+
+.profile-card{
+    text-align:center;
+}
+
+.profile-avatar{
+
+    width:120px;
+    height:120px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:#eef7ff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.profile-avatar i{
+
+    font-size:70px;
+
+    color:#0077b6;
+
+}
+
+.profile-card h2{
+
+    color:#023e8a;
+
+    margin-bottom:10px;
+
+}
+
+.profile-card .role{
+
+    color:#777;
+
+    margin-bottom:20px;
+
+}
+
+.profile-card hr{
+
+    margin:20px 0;
+
+    border:none;
+
+    border-top:1px solid #eee;
+
+}
+
+.profile-card p{
+
+    margin:15px 0;
+
+    font-size:17px;
+
+}
+
+.profile-card i{
+
+    color:#0077b6;
+
+    margin-right:10px;
+
+}
+
+@media(max-width:900px){
+
+.profile-form{
+
+grid-column:span 1;
+
+}
+
+}
+/* =========================================
+   BOOKING PAGE
+========================================= */
+
+.booking-grid{
+
+    display:grid;
+    grid-template-columns:350px 1fr;
+    gap:30px;
+    margin-top:35px;
+
+}
+
+.doctor-profile-card{
+
+    text-align:center;
+
+}
+
+.booking-doctor-img{
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:5px solid #0077b6;
+
+    margin-bottom:20px;
+
+}
+
+.doctor-profile-card h2{
+
+    color:#023e8a;
+
+}
+
+.specialization{
+
+    display:inline-block;
+
+    background:#eaf6ff;
+
+    color:#0077b6;
+
+    padding:8px 18px;
+
+    border-radius:20px;
+
+    margin:15px 0;
+
+    font-weight:600;
+
+}
+
+.doctor-profile-card hr{
+
+    margin:20px 0;
+
+}
+
+.doctor-profile-card p{
+
+    margin:15px 0;
+
+    line-height:1.8;
+
+}
+
+.doctor-profile-card i{
+
+    color:#0077b6;
+
+    margin-right:8px;
+
+}
+
+.doctor-description{
+
+    margin-top:20px;
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+
+.form-group select{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    background:#fff;
+
+    box-sizing:border-box;
+
+}
+
+@media(max-width:900px){
+
+.booking-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+/* =========================================
+   RESCHEDULE PAGE
+========================================= */
+
+.reschedule-container{
+
+    max-width:700px;
+    margin:40px auto;
+
+}
+
+.reschedule-container .dashboard-card{
+
+    padding:40px;
+
+}
+
+.button-group{
+
+    display:flex;
+    gap:20px;
+    margin-top:25px;
+
+}
+
+.button-group .btn{
+
+    flex:1;
+
+}
+
+.button-group .btn i{
+
+    margin-right:8px;
+
+}
+
+@media(max-width:768px){
+
+.button-group{
+
+flex-direction:column;
+
+}
+
 }

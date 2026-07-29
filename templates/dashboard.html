@@ -1,0 +1,243 @@
+{% extends "layout.html" %}
+
+{% block title %}Patient Dashboard{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- Welcome Card -->
+
+        <div class="dashboard-header">
+
+            <div>
+                <h1>
+                    Welcome,
+                    {{ patient['name'] }}
+                </h1>
+
+                <p>
+                    Manage your profile and appointments from your dashboard.
+                </p>
+            </div>
+
+            <div>
+
+                <a href="{{ url_for('booking', doctor_id=1) }}" class="btn">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    Book Appointment
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <h2>{{ appointments|length }}</h2>
+
+                <p>Total Appointments</p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-user"></i>
+
+                <h2>{{ patient['name'] }}</h2>
+
+                <p>Patient Name</p>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <h2>{{ patient['phone'] }}</h2>
+
+                <p>Contact Number</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+
+        <div class="dashboard-actions">
+
+            <a href="{{ url_for('profile') }}" class="btn">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+
+            <a href="{{ url_for('appointments') }}" class="btn">
+                <i class="fa-solid fa-calendar-days"></i>
+                My Appointments
+            </a>
+
+            <a href="{{ url_for('doctors') }}" class="btn">
+                <i class="fa-solid fa-user-doctor"></i>
+                Doctors
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+
+        <!-- Recent Appointments -->
+
+        <div class="table-container">
+
+            <h2>
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                Recent Appointments
+
+            </h2>
+
+            {% if appointments %}
+
+            <table class="appointment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Doctor</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for appointment in appointments %}
+
+                <tr>
+
+                    <td>{{ appointment['doctor_name'] }}</td>
+
+                    <td>{{ appointment['appointment_date'] }}</td>
+
+                    <td>{{ appointment['appointment_time'] }}</td>
+
+                    <td>
+
+                        {% if appointment['status']=="Pending" %}
+
+                        <span class="status pending">
+                            Pending
+                        </span>
+
+                        {% elif appointment['status']=="Approved" %}
+
+                        <span class="status approved">
+                            Approved
+                        </span>
+
+                        {% elif appointment['status']=="Rejected" %}
+
+                        <span class="status rejected">
+                            Rejected
+                        </span>
+
+                        {% else %}
+
+                        <span class="status cancelled">
+                            Cancelled
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if appointment['status']=="Pending" %}
+
+                        <a href="{{ url_for('reschedule', id=appointment['id']) }}"
+                           class="btn-small edit">
+
+                            Reschedule
+
+                        </a>
+
+                        <a href="{{ url_for('cancel', id=appointment['id']) }}"
+                           class="btn-small delete"
+                           onclick="return confirm('Cancel appointment?')">
+
+                            Cancel
+
+                        </a>
+
+                        {% else %}
+
+                        <span>-</span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <i class="fa-solid fa-calendar-xmark"></i>
+
+                <h3>No Appointments Yet</h3>
+
+                <p>
+                    You haven't booked any appointments.
+                </p>
+
+                <br>
+
+                <a href="{{ url_for('doctors') }}" class="btn">
+
+                    Book Your First Appointment
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

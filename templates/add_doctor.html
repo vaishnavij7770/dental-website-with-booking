@@ -4,96 +4,95 @@
 
 {% block content %}
 
-<div class="form-container">
+<section class="auth-section">
 
-    <h2>
-        <i class="fa-solid fa-user-plus"></i>
-        Add New Doctor
-    </h2>
+    <div class="auth-card register-card">
 
-    <form method="POST">
+        <h2>
+            <i class="fa-solid fa-user-plus"></i>
+            Add New Doctor
+        </h2>
 
-        <div class="form-group">
+        <p>
+            Fill in the doctor's information below.
+        </p>
 
-            <label>Doctor Name</label>
+        <form method="POST"  enctype="multipart/form-data">
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Enter doctor's name"
-                required
-            >
+            <div class="form-group">
 
-        </div>
+                <label>Doctor Name</label>
 
-        <div class="form-group">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter doctor's name"
+                    required>
 
-            <label>Specialization</label>
+            </div>
 
-            <input
-                type="text"
-                name="specialization"
-                placeholder="e.g. Dentist"
-                required
-            >
+            <div class="form-group">
 
-        </div>
+                <label>Specialization</label>
 
-        <div class="form-group">
+                <input
+                    type="text"
+                    name="specialization"
+                    placeholder="e.g. Orthodontist"
+                    required>
 
-            <label>Experience (Years)</label>
+            </div>
 
-            <input
-                type="number"
-                name="experience"
-                min="0"
-                required
-            >
+            <div class="form-group">
 
-        </div>
+                <label>Experience (Years)</label>
 
-        <div class="form-group">
+                <input
+                    type="number"
+                    name="experience"
+                    placeholder="10"
+                    required>
 
-            <label>Consultation Fees</label>
+            </div>
 
-            <input
-                type="number"
-                name="fees"
-                min="0"
-                required
-            >
+            <div class="form-group">
 
-        </div>
+                <label>Consultation Fees (₹)</label>
 
-        <div class="form-group">
+                <input
+                    type="number"
+                    name="fees"
+                    placeholder="500"
+                    required>
 
-            <label>Doctor Image URL</label>
+            </div>
 
-            <input
-                type="text"
-                name="image"
-                placeholder="images/doctor1.jpg or image URL"
-                required
-            >
+            <div class="form-group">
 
-        </div>
+                <label>Doctor Image</label>
 
-        <div class="form-group">
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    placeholder="Upload Your Profile Photo"
+                    required>
 
-            <label>About Doctor</label>
+            </div>
 
-            <textarea
-                name="about"
-                rows="5"
-                placeholder="Write doctor description..."
-                required
-            ></textarea>
+            <div class="form-group">
 
-        </div>
+                <label>About Doctor</label>
 
-        <div class="form-buttons">
+                <textarea
+                    name="about"
+                    rows="5"
+                    placeholder="Write about the doctor..."
+                    required></textarea>
 
-            <button type="submit" class="btn">
+            </div>
+
+            <button class="btn auth-btn" type="submit">
 
                 <i class="fa-solid fa-floppy-disk"></i>
 
@@ -101,16 +100,18 @@
 
             </button>
 
-            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-danger">
+            <a href="{{ url_for('admin_dashboard') }}"
+               class="btn btn-danger auth-btn"
+               style="margin-top:15px;">
 
                 Cancel
 
             </a>
 
-        </div>
+        </form>
 
-    </form>
+    </div>
 
-</div>
+</section>
 
 {% endblock %}

@@ -4,132 +4,121 @@
 
 {% block content %}
 
-<section class="form-section">
+<section class="dashboard-section">
 
-    <div class="form-container">
+    <div class="container">
 
-        <h2>Reschedule Appointment</h2>
+        <!-- Page Header -->
 
-        <p class="subtitle">
-            Update your appointment date and time.
-        </p>
+        <div class="dashboard-header">
 
-        <form method="POST">
+            <div>
 
-            <div class="form-group">
+                <h1>
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Reschedule Appointment
+                </h1>
 
-                <label>Appointment Date</label>
-
-                <input
-                    type="date"
-                    id="appointment_date"
-                    name="appointment_date"
-                    value="{{ appointment['appointment_date'] }}"
-                    required
-                >
+                <p>
+                    Update your appointment date and time.
+                </p>
 
             </div>
 
-            <div class="form-group">
+        </div>
 
-                <label>Appointment Time</label>
+        <!-- Reschedule Card -->
 
-                <select name="appointment_time" required>
+        <div class="reschedule-container">
 
-                    <option value="09:00 AM"
-                    {% if appointment['appointment_time']=="09:00 AM" %}selected{% endif %}>
-                        09:00 AM
-                    </option>
+            <div class="dashboard-card">
 
-                    <option value="09:30 AM"
-                    {% if appointment['appointment_time']=="09:30 AM" %}selected{% endif %}>
-                        09:30 AM
-                    </option>
+                <form method="POST">
 
-                    <option value="10:00 AM"
-                    {% if appointment['appointment_time']=="10:00 AM" %}selected{% endif %}>
-                        10:00 AM
-                    </option>
+                    <div class="form-group">
 
-                    <option value="10:30 AM"
-                    {% if appointment['appointment_time']=="10:30 AM" %}selected{% endif %}>
-                        10:30 AM
-                    </option>
+                        <label>Appointment Date</label>
 
-                    <option value="11:00 AM"
-                    {% if appointment['appointment_time']=="11:00 AM" %}selected{% endif %}>
-                        11:00 AM
-                    </option>
+                        <input
+                            type="date"
+                            id="appointment_date"
+                            name="appointment_date"
+                            value="{{ appointment['appointment_date'] }}"
+                            required>
 
-                    <option value="11:30 AM"
-                    {% if appointment['appointment_time']=="11:30 AM" %}selected{% endif %}>
-                        11:30 AM
-                    </option>
+                    </div>
 
-                    <option value="02:00 PM"
-                    {% if appointment['appointment_time']=="02:00 PM" %}selected{% endif %}>
-                        02:00 PM
-                    </option>
+                    <div class="form-group">
 
-                    <option value="02:30 PM"
-                    {% if appointment['appointment_time']=="02:30 PM" %}selected{% endif %}>
-                        02:30 PM
-                    </option>
+                        <label>Appointment Time</label>
 
-                    <option value="03:00 PM"
-                    {% if appointment['appointment_time']=="03:00 PM" %}selected{% endif %}>
-                        03:00 PM
-                    </option>
+                        <select
+                            name="appointment_time"
+                            required>
 
-                    <option value="03:30 PM"
-                    {% if appointment['appointment_time']=="03:30 PM" %}selected{% endif %}>
-                        03:30 PM
-                    </option>
+                            <option value="09:00 AM" {% if appointment['appointment_time']=="09:00 AM" %}selected{% endif %}>09:00 AM</option>
 
-                    <option value="04:00 PM"
-                    {% if appointment['appointment_time']=="04:00 PM" %}selected{% endif %}>
-                        04:00 PM
-                    </option>
+                            <option value="09:30 AM" {% if appointment['appointment_time']=="09:30 AM" %}selected{% endif %}>09:30 AM</option>
 
-                    <option value="04:30 PM"
-                    {% if appointment['appointment_time']=="04:30 PM" %}selected{% endif %}>
-                        04:30 PM
-                    </option>
+                            <option value="10:00 AM" {% if appointment['appointment_time']=="10:00 AM" %}selected{% endif %}>10:00 AM</option>
 
-                    <option value="05:00 PM"
-                    {% if appointment['appointment_time']=="05:00 PM" %}selected{% endif %}>
-                        05:00 PM
-                    </option>
+                            <option value="10:30 AM" {% if appointment['appointment_time']=="10:30 AM" %}selected{% endif %}>10:30 AM</option>
 
-                    <option value="05:30 PM"
-                    {% if appointment['appointment_time']=="05:30 PM" %}selected{% endif %}>
-                        05:30 PM
-                    </option>
+                            <option value="11:00 AM" {% if appointment['appointment_time']=="11:00 AM" %}selected{% endif %}>11:00 AM</option>
 
-                    <option value="06:00 PM"
-                    {% if appointment['appointment_time']=="06:00 PM" %}selected{% endif %}>
-                        06:00 PM
-                    </option>
+                            <option value="11:30 AM" {% if appointment['appointment_time']=="11:30 AM" %}selected{% endif %}>11:30 AM</option>
 
-                </select>
+                            <option value="02:00 PM" {% if appointment['appointment_time']=="02:00 PM" %}selected{% endif %}>02:00 PM</option>
+
+                            <option value="02:30 PM" {% if appointment['appointment_time']=="02:30 PM" %}selected{% endif %}>02:30 PM</option>
+
+                            <option value="03:00 PM" {% if appointment['appointment_time']=="03:00 PM" %}selected{% endif %}>03:00 PM</option>
+
+                            <option value="03:30 PM" {% if appointment['appointment_time']=="03:30 PM" %}selected{% endif %}>03:30 PM</option>
+
+                            <option value="04:00 PM" {% if appointment['appointment_time']=="04:00 PM" %}selected{% endif %}>04:00 PM</option>
+
+                            <option value="04:30 PM" {% if appointment['appointment_time']=="04:30 PM" %}selected{% endif %}>04:30 PM</option>
+
+                            <option value="05:00 PM" {% if appointment['appointment_time']=="05:00 PM" %}selected{% endif %}>05:00 PM</option>
+
+                            <option value="05:30 PM" {% if appointment['appointment_time']=="05:30 PM" %}selected{% endif %}>05:30 PM</option>
+
+                            <option value="06:00 PM" {% if appointment['appointment_time']=="06:00 PM" %}selected{% endif %}>06:00 PM</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="button-group">
+
+                        <button
+                            type="submit"
+                            class="btn">
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            Update Appointment
+
+                        </button>
+
+                        <a
+                            href="{{ url_for('appointments') }}"
+                            class="btn btn-danger">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </form>
 
             </div>
 
-            <button type="submit" class="btn">
-
-                <i class="fa-solid fa-calendar-check"></i>
-
-                Update Appointment
-
-            </button>
-
-            <a href="{{ url_for('appointments') }}" class="btn btn-secondary">
-
-                Cancel
-
-            </a>
-
-        </form>
+        </div>
 
     </div>
 

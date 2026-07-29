@@ -4,94 +4,117 @@
 
 {% block content %}
 
-<section class="profile-section">
+<section class="dashboard-section">
 
-    <div class="profile-card">
+    <div class="container">
 
-        <h2>My Profile</h2>
+        <div class="dashboard-header">
 
-        <form method="POST">
+            <div>
 
-            <div class="form-group">
+                <h1>
+                    <i class="fa-solid fa-user"></i>
+                    My Profile
+                </h1>
 
-                <label>Full Name</label>
-
-                <input
-                    type="text"
-                    name="name"
-                    value="{{ patient['name'] }}"
-                    required
-                >
+                <p>
+                    Update your personal information.
+                </p>
 
             </div>
-
-            <div class="form-group">
-
-                <label>Email Address</label>
-
-                <input
-                    type="email"
-                    value="{{ patient['email'] }}"
-                    readonly
-                >
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Phone Number</label>
-
-                <input
-                    type="text"
-                    name="phone"
-                    value="{{ patient['phone'] }}"
-                    pattern="[0-9]{10}"
-                    maxlength="10"
-                    required
-                >
-
-            </div>
-
-            <button type="submit" class="btn">
-
-                <i class="fa-solid fa-floppy-disk"></i>
-                Update Profile
-
-            </button>
-
-        </form>
-
-    </div>
-
-    <div class="profile-info">
-
-        <div class="info-card">
-
-            <i class="fa-solid fa-user"></i>
-
-            <h3>{{ patient['name'] }}</h3>
-
-            <p>Registered Patient</p>
 
         </div>
 
-        <div class="info-card">
+        <div class="dashboard-cards">
 
-            <i class="fa-solid fa-envelope"></i>
+            <!-- Edit Form -->
 
-            <h4>Email</h4>
+            <div class="dashboard-card profile-form">
 
-            <p>{{ patient['email'] }}</p>
+                <form method="POST">
 
-        </div>
+                    <div class="form-group">
 
-        <div class="info-card">
+                        <label>Full Name</label>
 
-            <i class="fa-solid fa-phone"></i>
+                        <input
+                            type="text"
+                            name="name"
+                            value="{{ patient['name'] }}"
+                            required>
 
-            <h4>Phone</h4>
+                    </div>
 
-            <p>{{ patient['phone'] }}</p>
+                    <div class="form-group">
+
+                        <label>Email Address</label>
+
+                        <input
+                            type="email"
+                            value="{{ patient['email'] }}"
+                            readonly>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Phone Number</label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            value="{{ patient['phone'] }}"
+                            required>
+
+                    </div>
+
+                    <button class="btn auth-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Update Profile
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Profile Card -->
+
+            <div class="dashboard-card profile-card">
+
+                <div class="profile-avatar">
+
+                    <i class="fa-solid fa-circle-user"></i>
+
+                </div>
+
+                <h2>{{ patient['name'] }}</h2>
+
+                <p class="role">
+                    Registered Patient
+                </p>
+
+                <hr>
+
+                <p>
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    {{ patient['email'] }}
+
+                </p>
+
+                <p>
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    {{ patient['phone'] }}
+
+                </p>
+
+            </div>
 
         </div>
 

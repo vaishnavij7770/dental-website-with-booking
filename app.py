@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import get_db_connection
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "dental_secret_key"
 
+UPLOAD_FOLDER = "static/images"
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # ==========================
 # HOME
@@ -501,24 +506,42 @@ def add_doctor():
 
         conn = get_db_connection()
 
+        name = request.form["name"]
+        specialization = request.form["specialization"]
+        experience = request.form["experience"]
+        fees = request.form["fees"]
+        about = request.form["about"]
+
+        image = request.files["image"]
+
+        filename = secure_filename(image.filename or "")
+        if not filename:
+            flash("Please select an image file.")
+            return redirect(request.url)
+
+        image.save(
+            os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        )
+
         conn.execute("""
-            INSERT INTO doctors
-            (
-                name,
-                specialization,
-                experience,
-                fees,
-                image,
-                about
-            )
-            VALUES (?,?,?,?,?,?)
-        """, (
-            request.form["name"],
-            request.form["specialization"],
-            request.form["experience"],
-            request.form["fees"],
-            request.form["image"],
-            request.form["about"]
+        INSERT INTO doctors
+        (
+            name,
+            specialization,
+            experience,
+            fees,
+            image,
+            about
+        )
+        VALUES (?,?,?,?,?,?)
+        """,
+        (
+            name,
+            specialization,
+            experience,
+            fees,
+            filename,
+            about
         ))
 
         conn.commit()
@@ -549,6 +572,29 @@ def edit_doctor(id):
 
     if request.method == "POST":
 
+        name = request.form["name"]
+        specialization = request.form["specialization"]
+        experience = request.form["experience"]
+        fees = request.form["fees"]
+        about = request.form["about"]
+
+        # Keep old image by default
+        filename = doctor["image"]
+
+        # Check if a new image is uploaded
+        image = request.files["image"]
+
+        if image and image.filename:
+
+            filename = secure_filename(image.filename)
+
+            image.save(
+                os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    filename
+                )
+            )
+
         conn.execute("""
             UPDATE doctors
             SET
@@ -559,13 +605,14 @@ def edit_doctor(id):
                 image=?,
                 about=?
             WHERE id=?
-        """, (
-            request.form["name"],
-            request.form["specialization"],
-            request.form["experience"],
-            request.form["fees"],
-            request.form["image"],
-            request.form["about"],
+        """,
+        (
+            name,
+            specialization,
+            experience,
+            fees,
+            filename,
+            about,
             id
         ))
 
@@ -582,7 +629,6 @@ def edit_doctor(id):
         "edit_doctor.html",
         doctor=doctor
     )
-
 
 # ==========================
 # DELETE DOCTOR
