@@ -1,130 +1,130 @@
-# import sqlite3
+import sqlite3
 
-# conn = sqlite3.connect("dental.db")
-# cursor = conn.cursor()
+conn = sqlite3.connect("dental.db")
+cursor = conn.cursor()
 
-# # ---------------- Patients ----------------
+# ---------------- Patients ----------------
 
-# cursor.execute("""
-# CREATE TABLE IF NOT EXISTS patients(
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS patients(
 
-# id INTEGER PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-# name TEXT NOT NULL,
+name TEXT NOT NULL,
 
-# age INTEGER NOT NULL,
+age INTEGER NOT NULL,
 
-# gender TEXT NOT NULL,
+gender TEXT NOT NULL,
 
-# mobile TEXT UNIQUE NOT NULL,
+mobile TEXT UNIQUE NOT NULL,
 
-# email TEXT UNIQUE NOT NULL,
+email TEXT UNIQUE NOT NULL,
 
-# address TEXT NOT NULL,
+address TEXT NOT NULL,
 
-# password TEXT NOT NULL
+password TEXT NOT NULL
 
-# )
-# """)
+)
+""")
 
-# # ---------------- Doctors ----------------
+# ---------------- Doctors ----------------
 
-# cursor.execute("""
-# CREATE TABLE IF NOT EXISTS doctors(
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS doctors(
 
-# id INTEGER PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-# name TEXT NOT NULL,
+name TEXT NOT NULL,
 
-# specialization TEXT NOT NULL,
+specialization TEXT NOT NULL,
 
-# experience TEXT NOT NULL,
+experience TEXT NOT NULL,
 
-# timing TEXT NOT NULL,
+timing TEXT NOT NULL,
 
-# fee INTEGER NOT NULL,
+fee INTEGER NOT NULL,
 
-# image TEXT
+image TEXT
 
-# )
-# """)
+)
+""")
 
-# # ---------------- Appointments ----------------
+# ---------------- Appointments ----------------
 
-# cursor.execute("""
-# CREATE TABLE IF NOT EXISTS appointments(
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS appointments(
 
-# id INTEGER PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-# patient_id INTEGER,
+patient_id INTEGER,
 
-# doctor_id INTEGER,
+doctor_id INTEGER,
 
-# treatment TEXT,
+treatment TEXT,
 
-# appointment_date TEXT,
+appointment_date TEXT,
 
-# appointment_time TEXT,
+appointment_time TEXT,
 
-# status TEXT DEFAULT 'Pending',
+status TEXT DEFAULT 'Pending',
 
-# FOREIGN KEY(patient_id) REFERENCES patients(id),
+FOREIGN KEY(patient_id) REFERENCES patients(id),
 
-# FOREIGN KEY(doctor_id) REFERENCES doctors(id)
+FOREIGN KEY(doctor_id) REFERENCES doctors(id)
 
-# )
-# """)
+)
+""")
 
-# # ---------------- Insert Doctors ----------------
+# ---------------- Insert Doctors ----------------
 
-# cursor.execute("SELECT COUNT(*) FROM doctors")
+cursor.execute("SELECT COUNT(*) FROM doctors")
 
-# count = cursor.fetchone()[0]
+count = cursor.fetchone()[0]
 
-# if count == 0:
+if count == 0:
 
-#     doctors = [
+    doctors = [
 
-#         (
-#             "Dr. Priya Sharma",
-#             "Orthodontist",
-#             "8 Years",
-#             "10 AM - 4 PM",
-#             500,
-#             "doctor1.jpg"
-#         ),
+        (
+            "Dr. Priya Sharma",
+            "Orthodontist",
+            "8 Years",
+            "10 AM - 4 PM",
+            500,
+            "doctor1.jpg"
+        ),
 
-#         (
-#             "Dr. Rahul Mehta",
-#             "Dental Surgeon",
-#             "10 Years",
-#             "11 AM - 6 PM",
-#             600,
-#             "doctor2.jpg"
-#         ),
+        (
+            "Dr. Rahul Mehta",
+            "Dental Surgeon",
+            "10 Years",
+            "11 AM - 6 PM",
+            600,
+            "doctor2.jpg"
+        ),
 
-#         (
-#             "Dr. Sneha Patil",
-#             "Cosmetic Dentist",
-#             "6 Years",
-#             "9 AM - 2 PM",
-#             450,
-#             "doctor3.jpg"
-#         )
+        (
+            "Dr. Sneha Patil",
+            "Cosmetic Dentist",
+            "6 Years",
+            "9 AM - 2 PM",
+            450,
+            "doctor3.jpg"
+        )
 
-#     ]
+    ]
 
-#     cursor.executemany("""
+    cursor.executemany("""
 
-#     INSERT INTO doctors
-#     (name,specialization,experience,timing,fee,image)
+    INSERT INTO doctors
+    (name,specialization,experience,timing,fee,image)
 
-#     VALUES(?,?,?,?,?,?)
+    VALUES(?,?,?,?,?,?)
 
-#     """, doctors)
+    """, doctors)
 
-# conn.commit()
+conn.commit()
 
-# conn.close()
+conn.close()
 
-# print("Database Created Successfully")
+print("Database Created Successfully")

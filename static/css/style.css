@@ -1,0 +1,784 @@
+/* ============================
+   GOOGLE FONT
+============================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f9ff;
+    color:#333;
+}
+
+/* ============================
+   NAVBAR
+============================ */
+
+nav{
+    width:100%;
+    background:#0b6efd;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 70px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:#fff;
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:20px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-size:17px;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#ffd54f;
+}
+
+/* ============================
+   HERO
+============================ */
+
+.hero{
+
+    height:85vh;
+
+    background:linear-gradient(rgba(0,0,0,.55),
+    rgba(0,0,0,.55)),
+    url("../images/dental-banner.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.hero h1{
+
+    font-size:55px;
+
+    margin-bottom:15px;
+
+}
+
+.hero p{
+
+    font-size:20px;
+
+    margin-bottom:30px;
+
+}
+
+.btn{
+
+    display:inline-block;
+
+    padding:12px 28px;
+
+    background:#0b6efd;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.btn:hover{
+
+    background:#084298;
+
+}
+
+/* ============================
+   SECTIONS
+============================ */
+
+section{
+
+    padding:70px;
+
+}
+
+section h2{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    font-size:35px;
+
+    color:#0b6efd;
+
+}
+
+/* ============================
+   ABOUT
+============================ */
+
+.about p{
+
+    max-width:900px;
+
+    margin:auto;
+
+    text-align:center;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+
+/* ============================
+   SERVICES
+============================ */
+
+.service-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.card i{
+
+    font-size:50px;
+
+    color:#0b6efd;
+
+    margin-bottom:20px;
+
+}
+
+.card h3{
+
+    margin-bottom:15px;
+
+}
+
+/* ============================
+   DOCTOR CARDS
+============================ */
+
+.doctor-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+}
+
+.doctor-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    text-align:center;
+
+    box-shadow:0 6px 15px rgba(0,0,0,.1);
+
+    transition:.3s;
+
+    padding-bottom:20px;
+
+}
+
+.doctor-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.doctor-card img{
+
+    width:100%;
+
+    height:280px;
+
+    object-fit:cover;
+
+}
+
+.doctor-card h2,
+.doctor-card h3{
+
+    margin-top:15px;
+
+    color:#0b6efd;
+
+}
+
+.doctor-card p{
+
+    margin:8px 0;
+
+}
+
+.specialization{
+
+    display:inline-block;
+
+    background:#0b6efd;
+
+    color:white;
+
+    padding:5px 15px;
+
+    border-radius:30px;
+
+    margin:10px 0;
+
+}
+
+/* ============================
+   WHY US
+============================ */
+
+.why-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+.why-container div{
+
+    background:white;
+
+    padding:20px;
+
+    border-left:5px solid #0b6efd;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    font-weight:600;
+
+}
+
+/* ============================
+   REVIEWS
+============================ */
+
+.review-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:25px;
+
+}
+
+.review{
+
+    background:white;
+
+    padding:30px;
+
+    text-align:center;
+
+    border-radius:10px;
+
+    box-shadow:0 5px 12px rgba(0,0,0,.08);
+
+}
+
+.review h4{
+
+    margin-top:15px;
+
+    color:#0b6efd;
+
+}
+
+/* ============================
+   CONTACT
+============================ */
+
+.contact{
+
+    text-align:center;
+
+}
+
+.contact p{
+
+    margin:12px 0;
+
+    font-size:18px;
+
+}
+
+/* ============================
+   FOOTER
+============================ */
+
+footer{
+
+    background:#0b6efd;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    margin-top:50px;
+
+}
+
+/* ============================
+   FORM CONTAINER
+============================ */
+
+.form-container{
+    width:100%;
+    min-height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.form-box{
+    width:100%;
+    max-width:500px;
+    background:#fff;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.form-box h2{
+    text-align:center;
+    color:#0b6efd;
+    margin-bottom:25px;
+}
+
+.form-box label{
+    display:block;
+    margin:12px 0 5px;
+    font-weight:600;
+}
+
+.form-box input,
+.form-box select,
+.form-box textarea{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    margin-bottom:15px;
+    font-size:15px;
+
+}
+
+.form-box textarea{
+    resize:none;
+}
+
+.form-box input:focus,
+.form-box select:focus,
+.form-box textarea:focus{
+
+    border-color:#0b6efd;
+
+}
+
+.form-box button{
+
+    width:100%;
+    padding:13px;
+    border:none;
+    background:#0b6efd;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+
+}
+
+.form-box button:hover{
+
+    background:#084298;
+
+}
+
+.form-box p{
+
+    margin-top:20px;
+    text-align:center;
+
+}
+
+.form-box a{
+
+    color:#0b6efd;
+    text-decoration:none;
+    font-weight:600;
+
+}
+
+/* ============================
+   FLASH MESSAGE
+============================ */
+
+.message{
+
+    background:#d1e7dd;
+    color:#0f5132;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:20px;
+    text-align:center;
+
+}
+
+/* ============================
+   DASHBOARD
+============================ */
+
+.dashboard{
+
+    text-align:center;
+
+}
+
+.dashboard h1{
+
+    color:#0b6efd;
+    margin-bottom:10px;
+
+}
+
+.dashboard-cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:40px;
+
+}
+
+.dashboard-card{
+
+    background:white;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 5px 12px rgba(0,0,0,.1);
+
+}
+
+.dashboard-card i{
+
+    font-size:45px;
+    color:#0b6efd;
+    margin-bottom:15px;
+
+}
+
+.dashboard-card h2{
+
+    margin-bottom:10px;
+    color:#333;
+
+}
+
+/* ============================
+   APPOINTMENT TABLE
+============================ */
+
+.container{
+
+    padding:50px;
+
+}
+
+.container h1{
+
+    text-align:center;
+    color:#0b6efd;
+    margin-bottom:30px;
+
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+table th{
+
+    background:#0b6efd;
+    color:white;
+    padding:15px;
+
+}
+
+table td{
+
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+
+}
+
+table tr:hover{
+
+    background:#f3f8ff;
+
+}
+
+/* ============================
+   STATUS
+============================ */
+
+.pending{
+
+    background:orange;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+
+}
+
+.cancel{
+
+    background:red;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+
+}
+
+.approved{
+
+    background:green;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+
+}
+
+/* ============================
+   BUTTONS
+============================ */
+
+.cancel-btn{
+
+    background:#dc3545;
+    color:white;
+    padding:8px 14px;
+    text-decoration:none;
+    border-radius:6px;
+    margin-right:5px;
+
+}
+
+.cancel-btn:hover{
+
+    background:#bb2d3b;
+
+}
+
+.edit-btn{
+
+    background:#198754;
+    color:white;
+    padding:8px 14px;
+    text-decoration:none;
+    border-radius:6px;
+
+}
+
+.edit-btn:hover{
+
+    background:#146c43;
+
+}
+
+/* ============================
+   EMPTY DATA
+============================ */
+
+.no-data{
+
+    background:white;
+    padding:50px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+.no-data h2{
+
+    color:#0b6efd;
+    margin-bottom:20px;
+
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media(max-width:768px){
+
+nav{
+
+    flex-direction:column;
+    padding:20px;
+
+}
+
+nav ul{
+
+    flex-direction:column;
+    margin-top:15px;
+
+}
+
+nav ul li{
+
+    margin:10px 0;
+
+}
+
+.hero{
+
+    height:70vh;
+
+}
+
+.hero h1{
+
+    font-size:36px;
+
+}
+
+.hero p{
+
+    font-size:16px;
+
+}
+
+section{
+
+    padding:40px 20px;
+
+}
+
+.container{
+
+    padding:20px;
+
+}
+
+table{
+
+    display:block;
+    overflow-x:auto;
+
+}
+
+.form-box{
+
+    padding:25px;
+
+}
+
+.dashboard-cards{
+
+    grid-template-columns:1fr;
+
+}
+
+.doctor-container,
+.service-container,
+.review-container,
+.why-container{
+
+    grid-template-columns:1fr;
+
+}
+
+}
